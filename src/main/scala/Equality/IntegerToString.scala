@@ -58,6 +58,6 @@ object Main extends App {
   }
 
   private val spelling = List("sixty six", "twelve", "six")
-  private val numberWordPair: List[NumberWordPair] = spellingsToNumbers(spelling)
+  private val numberWordPair: List[NumberWordPair] = spellingsToNumbers(spelling.map(_.toLowerCase))
   println(numberWordPair) // prints List(NumberWordPair(66,sixty six), NumberWordPair(12,twelve), NumberWordPair(6,six))
 }
