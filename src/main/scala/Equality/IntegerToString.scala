@@ -57,7 +57,7 @@ object Main extends App {
     spellings.map(word => spellingToNumber(word))
   }
 
-  private val spelling = List("seven hundred seven", "twelve", "six")
+  private val spelling = List("sixty six", "twelve", "six")
   private val numberWordPair: List[NumberWordPair] = spellingsToNumbers(spelling)
   println(numberWordPair) // prints List(NumberWordPair(66,sixty six), NumberWordPair(12,twelve), NumberWordPair(6,six))
 }
