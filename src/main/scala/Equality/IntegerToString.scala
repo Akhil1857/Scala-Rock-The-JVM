@@ -44,7 +44,7 @@ object Main extends App {
       case Nil => result
       case word :: rest =>
         val value = stringToInt(word)
-        if (value < 100) processWords(rest, result + value)
+        if (value <= 100) processWords(rest, result + value)
         else throw new InputMismatchException("Please enter number less than hundred")
     }
 
