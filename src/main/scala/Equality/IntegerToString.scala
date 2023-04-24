@@ -5,7 +5,8 @@ import scala.annotation.tailrec
 
 case class NumberWordPair(number: Int, spelling: String)
 
-object Main extends App {
+class Convertor {
+
   private val stringToInt = Map(
     "zero" -> 0,
     "one" -> 1,
@@ -40,12 +41,14 @@ object Main extends App {
 
   private def spellingToNumber(spelling: String): NumberWordPair = {
     @tailrec
-    def processWords(words: List[String], result: Int): Int = words match {
-      case Nil => result
-      case word :: rest =>
-        val value = stringToInt(word)
-        if (value <= 100) processWords(rest, result + value)
-        else throw new InputMismatchException("Please enter number less than hundred")
+    def processWords(words: List[String], result: Int): Int = {
+      words match {
+        case Nil => result
+        case word :: rest =>
+          val value = stringToInt(word)
+          if (value <= 100) processWords(rest, result + value)
+          else throw new InputMismatchException("Please enter number less than hundred")
+      }
     }
 
     val words = spelling.split(" ").toList
@@ -53,11 +56,7 @@ object Main extends App {
     NumberWordPair(current, spelling)
   }
 
-  private def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
+  def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
     spellings.map(word => spellingToNumber(word))
   }
-
-  private val spelling = List("sixty six", "twelve", "six")
-  private val numberWordPair: List[NumberWordPair] = spellingsToNumbers(spelling.map(_.toLowerCase))
-  println(numberWordPair) // prints List(NumberWordPair(66,sixty six), NumberWordPair(12,twelve), NumberWordPair(6,six))
 }
