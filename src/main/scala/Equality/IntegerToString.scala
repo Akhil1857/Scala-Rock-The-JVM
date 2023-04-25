@@ -1,7 +1,6 @@
 package Equality
 
 import scala.annotation.tailrec
-import scala.util.{Failure, Success, Try}
 
 case class NumberWordPair(number: Int, spelling: String)
 
@@ -39,32 +38,31 @@ class Convertor {
     "hundred" -> 100
   )
 
-  private def spellingToNumber(spelling: String): Try[NumberWordPair] = {
-    @tailrec
-    def processWords(words: List[String], result: Int): Try[Int] = {
-      words match {
-        case Nil => Success(result)
-        case word :: rest =>
-          val value = stringToInt(word)
-          if (result <= 100) processWords(rest, result + value)
-          else Failure(new IllegalArgumentException())
+    private def spellingToNumber(spelling: String): Option[NumberWordPair] = {
+      @tailrec
+      def processWords(words: List[String], result: Int): Option[Int] = {
+        words match {
+          case Nil => Some(result)
+          case word :: rest =>
+            val value = stringToInt(word)
+            if (result <= 100) processWords(rest, result + value)
+            else None
+        }
+      }
+
+      val words = spelling.split(" ").toList
+      processWords(words, 0) match {
+        case Some(digit) => Some(NumberWordPair(digit , spelling))
+        case None => None
       }
     }
 
-    val words = spelling.split(" ").toList
-    processWords(words, 0) match {
-      case Success(value) => Success(NumberWordPair(value, spelling))
-      case Failure(exception) => Failure(exception)
-
-    }
-  }
-
-  def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
-    spellings.map(word => spellingToNumber(word) match {
-      case Success(value) => value
-      case Failure(ex) => NumberWordPair(0, s"(Error:-Value>100) Please Enter value <= 100")
-    })
-  }
+    def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
+          spellings.map(word => spellingToNumber(word) match {
+            case Some(value) => value
+            case None => NumberWordPair(0, s"(Error:-Value>100) Please Enter value <= 100")
+          })
+        }
 
 }
 
