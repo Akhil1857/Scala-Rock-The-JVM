@@ -39,15 +39,17 @@ class Convertor {
     "hundred" -> 100
   )
 
-  private def spellingToNumber(spelling: String): NumberWordPair = {
+  private def spellingToNumber(spelling: String): Option[NumberWordPair] = {
     @tailrec
-    def processWords(words: List[String], result: Int): Int = {
+    def processWords(words: List[String], result: Int): Option[Int] = {
       words match {
-        case Nil => result
+        case Nil => Some(result)
         case word :: rest =>
-          val value = stringToInt(word)
-          if (value <= 100) processWords(rest, result + value)
-          else throw new InputMismatchException("Please enter number less than hundred")
+          val value = stringToInt.get(word)
+          value match {
+            case Some(value) if value <= 100 => processWords(rest, result + value)
+            case _ => None
+          }
       }
     }
 
@@ -56,7 +58,7 @@ class Convertor {
     NumberWordPair(current, spelling)
   }
 
-  def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
+  def spellingsToNumbers(spellings: List[String]): List[Option[NumberWordPair]]  = {
     spellings.map(word => spellingToNumber(word))
   }
 }
