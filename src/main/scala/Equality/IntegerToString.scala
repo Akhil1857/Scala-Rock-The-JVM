@@ -1,6 +1,7 @@
 package Equality
 
 import scala.annotation.tailrec
+import scala.util.{Try, Success, Failure}
 
 case class NumberWordPair(number: Int, spelling: String)
 
@@ -38,31 +39,33 @@ class Convertor {
     "hundred" -> 100
   )
 
-  private def spellingToNumber(spelling: String): Option[NumberWordPair] = {
+  private def spellingToNumber(spelling: String): Try[NumberWordPair] = {
     @tailrec
-    def processWords(words: List[String], result: Int): Option[Int] = {
+    def processWords(words: List[String], result: Int): Try[Int] = {
       words match {
-        case Nil => Some(result)
+        case Nil => Success(result)
         case word :: rest =>
           val value = stringToInt(word)
           if (result <= 100) processWords(rest, result + value)
-          else None
+          else Failure(new IllegalArgumentException())
       }
     }
 
     val words = spelling.split(" ").toList
     processWords(words, 0) match {
-      case Some(digit) => Some(NumberWordPair(digit, spelling))
-      case None => None
+      case Success(value) => Success(NumberWordPair(value, spelling))
+      case Failure(exception) => Failure(exception)
+
     }
   }
 
-  def spellingsToNumbers(spellings: List[String]): Option[List[NumberWordPair]] =Option {
+  def spellingsToNumbers(spellings: List[String]): Try[List[NumberWordPair]] =  Try{
     spellings.map(word => spellingToNumber(word) match {
-      case Some(value) => value
-      case None => NumberWordPair(0, s"(Error:-Value>100) Please Enter value <= 100")
+      case Success(value) => value
+      case Failure(ex) => NumberWordPair(0, s"(Error:-Value>100) Please Enter value <= 100")
     })
   }
+
 
 }
 
