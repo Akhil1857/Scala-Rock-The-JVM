@@ -38,8 +38,6 @@ class Convertor {
     "hundred" -> 100
   )
 
-
-  //this will convert each spelling to number
   private def spellingToNumber(spelling: String): Option[NumberWordPair] = {
     @tailrec
     def processWords(words: List[String], result: Int): Option[Int] = {
@@ -59,7 +57,7 @@ class Convertor {
     }
   }
 
-  def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
+  def spellingsToNumbers(spellings: List[String]): Option[List[NumberWordPair]] =Option {
     spellings.map(word => spellingToNumber(word) match {
       case Some(value) => value
       case None => NumberWordPair(0, s"(Error:-Value>100) Please Enter value <= 100")
@@ -67,4 +65,3 @@ class Convertor {
   }
 
 }
-
