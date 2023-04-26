@@ -3,10 +3,12 @@ package Equality
 object Driver extends App {
 
   private val convertor = new Convertor
-  private val spelling = List("sixty six", "Twelve", "Six")
-  private val numberWordPair: List[NumberWordPair] = convertor.spellingsToNumbers(spelling.map(_.toLowerCase)) //f:String => String
+  private val spelling = List("twenty hundred one", "Twelve", "Six")
 
-  println(numberWordPair) // print List(NumberWordPair(66,sixty six), NumberWordPair(12,twelve), NumberWordPair(6,six))
-
+  //Function Call
+  convertor.spellingsToNumbers(spelling.map(_.toLowerCase)) match {
+    case Some(value) => println(value) // prints List(NumberWordPair(0,(Error:-Value>100) Please Enter value <= 100), NumberWordPair(12,twelve), NumberWordPair(6,six))
+    case None => print("Error")
+  }
 
 }
