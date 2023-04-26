@@ -1,12 +1,16 @@
 package Equality
 
+import scala.util.{Failure, Success}
+
 object Driver extends App {
 
   private val convertor = new Convertor
-  private val spelling = List("sixty six", "Twelve", "Six")
-  private val numberWordPair: List[NumberWordPair] = convertor.spellingsToNumbers(spelling.map(_.toLowerCase)) //f:String => String
+  private val spelling = List("one hundred one","twelve","six")
 
-  println(numberWordPair) // prints List(NumberWordPair(66,sixty six), NumberWordPair(12,twelve), NumberWordPair(6,six))
-
+  //Function Call
+  convertor.spellingsToNumbers(spelling.map(_.toLowerCase)) match {
+    case Success(value) => println(value) // prints List(NumberWordPair(0,(Error:-Value>100) Please Enter value <= 100), NumberWordPair(12,twelve), NumberWordPair(6,six))
+    case Failure(ex) => println(s"Error+${ex.getMessage}")
+  }
 
 }
