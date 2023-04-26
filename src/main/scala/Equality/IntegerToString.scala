@@ -1,7 +1,7 @@
 package Equality
 
 import scala.annotation.tailrec
-import scala.util.{Failure, Success, Try}
+import scala.util.{Try, Success, Failure}
 
 case class NumberWordPair(number: Int, spelling: String)
 
@@ -59,12 +59,12 @@ class Convertor {
     }
   }
 
-  def spellingsToNumbers(spellings: List[String]): List[NumberWordPair] = {
+  def spellingsToNumbers(spellings: List[String]): Try[List[NumberWordPair]] =  Try{
     spellings.map(word => spellingToNumber(word) match {
       case Success(value) => value
       case Failure(ex) => NumberWordPair(0, s"(Error:-Value>100) Please Enter value <= 100")
     })
   }
 
-}
 
+}
