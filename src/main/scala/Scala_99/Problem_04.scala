@@ -1,6 +1,6 @@
 package Scala_99
 
-object NumberOfElementInList_04 extends App {
+object Problem_04 extends App {
 
   private def listLength(list: List[Int], count: Int): Int = list match {
     case _ :: Nil => count + 1

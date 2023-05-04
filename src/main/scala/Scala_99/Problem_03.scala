@@ -1,7 +1,10 @@
 package Scala_99
 
-object KthElement_03 extends App {
+import scala.annotation.tailrec
 
+object Problem_03 extends App {
+
+  @tailrec
   private def kthExtractor(kthElement: Int, list: List[Int]): Int = (kthElement, list) match {
     case (0, head :: _) => head
     case (kthElement, _ :: tail) => kthExtractor(kthElement - 1, tail)
@@ -17,3 +20,20 @@ object KthElement_03 extends App {
     case e: NoSuchElementException => print("Element not Found")
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

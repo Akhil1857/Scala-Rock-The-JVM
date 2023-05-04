@@ -1,6 +1,6 @@
 package Scala_99
 
-object PalindromicList_06 extends App {
+object Problem_06 extends App {
 
   private def reverseList(list: List[Int]): List[Int] = list match {
     case Nil => Nil

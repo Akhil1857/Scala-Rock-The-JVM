@@ -1,6 +1,6 @@
 package Scala_99
 
-object ReverseList_05 extends App {
+object Problem_05 extends App {
 
   private def reverseList(list: List[Int]): List[Int] = list match {
     case Nil => Nil

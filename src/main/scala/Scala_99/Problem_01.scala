@@ -1,6 +1,6 @@
 package Scala_99
 
-object FindLastElement_01 extends App {
+object Problem_01 extends App {
 
   val list = List()
   try {

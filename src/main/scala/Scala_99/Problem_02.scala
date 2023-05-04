@@ -1,6 +1,6 @@
 package Scala_99
 
-object SecondLastElement_02 extends App {
+object Problem_02 extends App {
 
   private def secondLast(list: List[Int]): Int = list match {
     case head :: second :: Nil => head
